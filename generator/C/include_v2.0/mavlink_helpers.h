@@ -824,10 +824,8 @@ MAVLINK_HELPER uint8_t mavlink_frame_char_buffer(mavlink_message_t* rxmsg,
 
     if (r_message!=NULL) {
         r_message->len = rxmsg->len; // Provide visibility on how far we are into current msg
-        
     }
     if (r_mavlink_status!=NULL) {
-        
         r_mavlink_status->parse_state = status->parse_state;
         r_mavlink_status->packet_idx = status->packet_idx;
         r_mavlink_status->current_rx_seq = status->current_rx_seq+1;
@@ -844,9 +842,9 @@ MAVLINK_HELPER uint8_t mavlink_frame_char_buffer(mavlink_message_t* rxmsg,
 		  mavlink_msg_to_send_buffer() won't overwrite the
 		  checksum
 		 */
-        if (r_message!=NULL) {
-            r_message->checksum = _MAV_PAYLOAD(rxmsg)[status->packet_idx] | (_MAV_PAYLOAD(rxmsg)[status->packet_idx+1]<<8);
-        }
+            if (r_message!=NULL) {
+                r_message->checksum = _MAV_PAYLOAD(rxmsg)[status->packet_idx] | (_MAV_PAYLOAD(rxmsg)[status->packet_idx+1]<<8);
+            }
 	}
 
 	return status->msg_received;
